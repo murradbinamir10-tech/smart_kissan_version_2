@@ -49,6 +49,18 @@ export function WebhookDashboard() {
     await loadWebhookEvents()
   }
 
+  const sendTestMessage = async () => {
+    const testMessage = {
+      message: 'Hello from Smart Kissan!',
+      timestamp: new Date().toISOString(),
+      user: user?.email || 'anonymous',
+      source: 'smart_kissan_web_app'
+    }
+
+    await WebhookService.sendTestWebhook(WEBHOOK_URL)
+    await loadWebhookEvents()
+  }
+
   return (
     <div className="space-y-6">
       <div className="bg-white rounded-lg shadow-md p-6">
@@ -63,6 +75,12 @@ export function WebhookDashboard() {
       <div className="bg-white rounded-lg shadow-md p-6">
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Send Sample Webhooks</h3>
         <div className="flex gap-4">
+          <button
+            onClick={sendTestMessage}
+            className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors"
+          >
+            Send Test Message
+          </button>
           <button
             onClick={sendSampleCropUpdate}
             className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
