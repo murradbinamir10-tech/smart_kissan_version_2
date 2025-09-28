@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import { useAuth } from './hooks/useAuth'
 import { AuthForm } from './components/AuthForm'
-import { Sprout, LogOut, Loader } from 'lucide-react'
+import { WebhookDashboard } from './components/WebhookDashboard'
+import { Sprout, LogOut, Loader, Activity, Home } from 'lucide-react'
 
 function App() {
   const { user, loading, signOut } = useAuth()
   const [authMode, setAuthMode] = useState<'signin' | 'signup'>('signin')
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'webhooks'>('dashboard')
 
   if (loading) {
     return (
@@ -60,48 +62,83 @@ function App() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Welcome to Smart Kissan
-          </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Your intelligent farming companion. Manage your crops, monitor weather, 
-            and make data-driven decisions to maximize your harvest.
-          </p>
+        {/* Navigation Tabs */}
+        <div className="mb-8">
+          <nav className="flex space-x-8">
+            <button
+              onClick={() => setActiveTab('dashboard')}
+              className={`flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md transition-colors ${
+                activeTab === 'dashboard'
+                  ? 'bg-green-100 text-green-700'
+                  : 'text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              <Home className="w-4 h-4" />
+              Dashboard
+            </button>
+            <button
+              onClick={() => setActiveTab('webhooks')}
+              className={`flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md transition-colors ${
+                activeTab === 'webhooks'
+                  ? 'bg-green-100 text-green-700'
+                  : 'text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              <Activity className="w-4 h-4" />
+              Webhooks
+            </button>
+          </nav>
         </div>
 
-        {/* Feature Cards */}
-        <div className="grid md:grid-cols-3 gap-6">
-          <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
-            <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
-              <Sprout className="w-6 h-6 text-green-600" />
+        {/* Tab Content */}
+        {activeTab === 'dashboard' ? (
+          <>
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                Welcome to Smart Kissan
+              </h2>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                Your intelligent farming companion. Manage your crops, monitor weather, 
+                and make data-driven decisions to maximize your harvest.
+              </p>
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Crop Management</h3>
-            <p className="text-gray-600">
-              Track your crops, monitor growth stages, and get personalized recommendations.
-            </p>
-          </div>
 
-          <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
-            <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-              <Sprout className="w-6 h-6 text-blue-600" />
-            </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Weather Insights</h3>
-            <p className="text-gray-600">
-              Get accurate weather forecasts and alerts to protect your crops.
-            </p>
-          </div>
+            {/* Feature Cards */}
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                  <Sprout className="w-6 h-6 text-green-600" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Crop Management</h3>
+                <p className="text-gray-600">
+                  Track your crops, monitor growth stages, and get personalized recommendations.
+                </p>
+              </div>
 
-          <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
-            <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
-              <Sprout className="w-6 h-6 text-purple-600" />
+              <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                  <Sprout className="w-6 h-6 text-blue-600" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Weather Insights</h3>
+                <p className="text-gray-600">
+                  Get accurate weather forecasts and alerts to protect your crops.
+                </p>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+                <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                  <Sprout className="w-6 h-6 text-purple-600" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Smart Analytics</h3>
+                <p className="text-gray-600">
+                  Analyze your farming data and optimize your agricultural practices.
+                </p>
+              </div>
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Smart Analytics</h3>
-            <p className="text-gray-600">
-              Analyze your farming data and optimize your agricultural practices.
-            </p>
-          </div>
-        </div>
+          </>
+        ) : (
+          <WebhookDashboard />
+        )}
       </main>
     </div>
   )
