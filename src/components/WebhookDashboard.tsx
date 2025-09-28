@@ -3,7 +3,7 @@ import { WebhookService, WebhookEvent } from '../services/webhookService'
 import { WebhookTester } from './WebhookTester'
 import { Activity, Clock, CheckCircle, AlertCircle } from 'lucide-react'
 
-const WEBHOOK_URL = 'https://8f12498ee627.ngrok-free.app/webhook/e321d96c-a2fe-48c1-96cf-3ceadf97016a'
+const WEBHOOK_URL = 'https://8f12498ee627.ngrok-free.app/webhook-test/e321d96c-a2fe-48c1-96cf-3ceadf97016a'
 
 export function WebhookDashboard() {
   const [events, setEvents] = useState<WebhookEvent[]>([])
