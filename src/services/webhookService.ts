@@ -26,6 +26,7 @@ export class WebhookService {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'ngrok-skip-browser-warning': 'true',
         },
         body: JSON.stringify(testPayload)
       })
@@ -55,6 +56,7 @@ export class WebhookService {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'ngrok-skip-browser-warning': 'true',
         },
         body: JSON.stringify(payload)
       })
@@ -79,6 +81,7 @@ export class WebhookService {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'ngrok-skip-browser-warning': 'true',
         },
         body: JSON.stringify(payload)
       })
